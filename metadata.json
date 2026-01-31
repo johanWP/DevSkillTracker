@@ -1,0 +1,5 @@
+{
+  "name": "DevSkillTracker",
+  "description": "A secure internal web app where admins can log in and manage a database of developers and their skills. This is Phase 1, focusing on Firebase setup, admin-only authentication, and basic CRUD operations for developer records.",
+  "requestFramePermissions": []
+}
