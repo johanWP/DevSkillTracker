@@ -25,6 +25,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ authError }) => {
 
     try {
       await signIn(email, password);
+      setIsLoading(false);
       // Auth state change will be handled by the main App component
     } catch (err) {
       if (err && typeof err === 'object' && 'code' in err) {
@@ -52,7 +53,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ authError }) => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <h1 className="text-3xl font-bold text-center text-gray-800">DevSkillTracker</h1>
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form data-testid="login-form" onSubmit={handleLogin} className="space-y-6">
           <div>
             <label htmlFor="email" className="text-sm font-medium text-gray-700">
               Email Address

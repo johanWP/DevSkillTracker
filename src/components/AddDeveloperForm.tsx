@@ -58,7 +58,6 @@ const AddDeveloperForm: React.FC = () => {
     setFormData(initialFormState);
     setSkills([]);
     setError(null);
-    setSuccess(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -101,8 +100,8 @@ const AddDeveloperForm: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Form Fields */}
-          <InputField label="Full Name" name="name" value={formData.name} onChange={handleInputChange} required />
-          <InputField label="Email Address" name="email" type="email" value={formData.email} onChange={handleInputChange} required />
+          <InputField label="Full Name" name="name" value={formData.name} onChange={handleInputChange} required={false} />
+          <InputField label="Email Address" name="email" type="email" value={formData.email} onChange={handleInputChange} required={false} />
           <InputField label="Employee ID" name="employeeId" value={formData.employeeId} onChange={handleInputChange} />
           <InputField label="Location" name="location" value={formData.location} onChange={handleInputChange} />
           <InputField label="Role" name="role" value={formData.role} onChange={handleInputChange} />

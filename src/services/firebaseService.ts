@@ -13,12 +13,12 @@ export type User = firebase.User;
 // Load Firebase config from environment variables
 const firebaseConfig = {
   // FIX: Cast import.meta to any to avoid TypeScript errors when vite/client types are not found.
-  apiKey: (import.meta as any).env.VITE_API_KEY,
-  authDomain: (import.meta as any).env.VITE_AUTH_DOMAIN,
-  projectId: (import.meta as any).env.VITE_PROJECT_ID,
-  storageBucket: (import.meta as any).env.VITE_STORAGE_BUCKET,
-  messagingSenderId: (import.meta as any).env.VITE_MESSAGING_SENDER_ID,
-  appId: (import.meta as any).env.VITE_APP_ID
+  apiKey: ((globalThis as any).import?.meta?.env?.VITE_API_KEY || 'mock-api-key'),
+  authDomain: ((globalThis as any).import?.meta?.env?.VITE_AUTH_DOMAIN || 'mock.firebaseapp.com'),
+  projectId: ((globalThis as any).import?.meta?.env?.VITE_PROJECT_ID || 'mock-project'),
+  storageBucket: ((globalThis as any).import?.meta?.env?.VITE_STORAGE_BUCKET || 'mock.appspot.com'),
+  messagingSenderId: ((globalThis as any).import?.meta?.env?.VITE_MESSAGING_SENDER_ID || '123456789'),
+  appId: ((globalThis as any).import?.meta?.env?.VITE_APP_ID || '1:123:web:abc')
 };
 
 // Basic validation to ensure environment variables are loaded

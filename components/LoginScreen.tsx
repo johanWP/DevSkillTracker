@@ -26,6 +26,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ authError }) => {
 
     try {
       await signIn(email, password);
+      setIsLoading(false);
       // Auth state change will be handled by the main App component
     } catch (err) {
       if (err && typeof err === 'object' && 'code' in err) {

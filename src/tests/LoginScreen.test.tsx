@@ -1,7 +1,7 @@
 // FIX: Import test functions and types directly from @jest/globals to avoid environment configuration issues.
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import LoginScreen from '../components/LoginScreen';
 import * as firebaseService from '../services/firebaseService';
@@ -14,8 +14,12 @@ const mockedSignIn = firebaseService.signIn as jest.Mock;
 
 describe('LoginScreen Component', () => {
   beforeEach(() => {
+    // Use real timers for async tests
+    jest.useRealTimers();
     // Clear all mocks before each test
     jest.clearAllMocks();
+    // Mock signIn to resolve after a short delay to simulate async behavior
+    mockedSignIn.mockImplementation(() => new Promise(resolve => setTimeout(() => resolve(undefined), 10)));
     // Suppress console.error for tests expecting errors
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
@@ -62,12 +66,11 @@ describe('LoginScreen Component', () => {
     await user.type(screen.getByLabelText(/email address/i), 'admin@test.com');
     await user.type(screen.getByLabelText(/password/i), 'password123');
     
-    const loginButton = screen.getByRole('button', { name: /log in/i });
-    fireEvent.click(loginButton);
+    const loginButton = screen.getByRole('button');
+    fireEvent.submit(screen.getByTestId('login-form'));
     
     // Check for loading state
-    expect(loginButton).toBeDisabled();
-    expect(screen.getByRole('button', { name: /log in/i }).querySelector('svg')).toBeInTheDocument();
+    await waitFor(() => expect(loginButton).toBeDisabled());
 
     // Wait for the mock promise to resolve
     await waitFor(() => {

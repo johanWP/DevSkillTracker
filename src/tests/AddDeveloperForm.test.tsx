@@ -42,10 +42,11 @@ describe('AddDeveloperForm Component', () => {
   });
 
   it('shows validation error if required fields are empty on submit', async () => {
+    const user = userEvent.setup();
     render(<AddDeveloperForm />);
     const saveButton = screen.getByRole('button', { name: /save developer/i });
     
-    fireEvent.click(saveButton);
+    await user.click(saveButton);
     
     expect(await screen.findByText('Name and Email are required fields.')).toBeInTheDocument();
     expect(mockedAddDeveloper).not.toHaveBeenCalled();
