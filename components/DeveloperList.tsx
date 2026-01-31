@@ -1,7 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
-import { getDevelopers } from '../services/firebaseService';
-import { Developer } from '../types';
+// FIX: Corrected import path for firebaseService to point to the 'src' directory.
+import { getDevelopers } from '../src/services/firebaseService';
+// FIX: Corrected import path for types to point to the 'src' directory.
+import { Developer } from '../src/types';
 
 const DeveloperList: React.FC = () => {
   const [developers, setDevelopers] = useState<Developer[]>([]);

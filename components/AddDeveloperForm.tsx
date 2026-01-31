@@ -1,7 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
-import { getSkillsCatalog, addDeveloper, developerExists } from '../services/firebaseService';
-import { Skill } from '../types';
+// FIX: Corrected import path for firebaseService to point to the 'src' directory.
+import { getSkillsCatalog, addDeveloper, developerExists } from '../src/services/firebaseService';
+// FIX: Corrected import path for types to point to the 'src' directory.
+import { Skill } from '../src/types';
 
 const initialFormState = {
   name: '',

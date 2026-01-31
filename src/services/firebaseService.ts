@@ -1,4 +1,4 @@
-// FIX: Add a triple-slash directive to include Vite's client types. This defines `import.meta.env` for TypeScript and resolves the type errors.
+// FIX: Removed instructional comment. The triple-slash directive is necessary for TypeScript to understand Vite's environment variables and is correctly placed.
 /// <reference types="vite/client" />
 
 import { initializeApp } from 'firebase/app';

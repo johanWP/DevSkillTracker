@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
-import { User, signOutUser } from '../services/firebaseService';
+// FIX: Corrected import path to point to the 'src' directory.
+import { User, signOutUser } from '../src/services/firebaseService';
 import DeveloperList from './DeveloperList';
 import AddDeveloperForm from './AddDeveloperForm';
 import SettingsView from './SettingsView';

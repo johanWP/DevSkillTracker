@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
-import { getSkillsCatalog } from '../services/firebaseService';
+// FIX: Corrected import path for firebaseService to point to the 'src' directory.
+import { getSkillsCatalog } from '../src/services/firebaseService';
 
 const SettingsView: React.FC = () => {
   const [skills, setSkills] = useState<string[]>([]);
