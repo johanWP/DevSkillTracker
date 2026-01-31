@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { auth, signOutUser } from './services/firebaseService';
+// FIX: Import User and onAuthStateChanged from firebaseService to centralize firebase logic
+import { type User, onAuthStateChanged, auth, signOutUser } from './services/firebaseService';
 import { ADMIN_EMAILS } from './constants';
 import LoginScreen from './components/LoginScreen';
 import Dashboard from './components/Dashboard';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // FIX: Corrected import path to point to the 'src' directory.
 import { signIn } from '../src/services/firebaseService';
-import { FirebaseError } from 'firebase/app';
+// FIX: The `FirebaseError` type is not reliably exported. Using duck-typing for error handling.
 
 interface LoginScreenProps {
   authError: string | null;
@@ -28,9 +28,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ authError }) => {
       await signIn(email, password);
       // Auth state change will be handled by the main App component
     } catch (err) {
-      if (err instanceof FirebaseError) {
-        console.error("Firebase Auth Error:", err.code, err.message); // Added for detailed debugging
-        switch (err.code) {
+      if (err && typeof err === 'object' && 'code' in err) {
+        const firebaseError = err as { code: string; message: string };
+        console.error("Firebase Auth Error:", firebaseError.code, firebaseError.message); // Added for detailed debugging
+        switch (firebaseError.code) {
           case 'auth/user-not-found':
           case 'auth/wrong-password':
           case 'auth/invalid-credential':
@@ -40,7 +41,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ authError }) => {
             setError('Network error. Please check your internet connection and Firebase configuration.');
             break;
           default:
-            setError(`An unexpected error occurred: ${err.code}`);
+            setError(`An unexpected error occurred: ${firebaseError.code}`);
             break;
         }
       } else {

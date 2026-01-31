@@ -13,6 +13,7 @@ DevSkillTracker is a secure internal web application designed for managing a dat
     -   **Read**: View a list of all developers.
 -   **Simple UI**: A clean, functional interface built with React and Tailwind CSS.
 -   **Secure by Default**: Firestore security rules to ensure only authorized admins can access data.
+-   **Fully Tested**: Includes both unit tests (Jest) and end-to-end tests (Playwright).
 
 ## Prerequisites
 -   A [Google Firebase](https://firebase.google.com/) account.
@@ -23,38 +24,7 @@ DevSkillTracker is a secure internal web application designed for managing a dat
 *(These instructions remain the same. Ensure you have created your Firebase project, enabled Auth, set up Firestore, and applied security rules.)*
 
 ## Local Setup & Configuration
-
-### 1. Get the Code
-Download or clone all the project files to your local machine.
-
-### 2. Install Dependencies
-Open a terminal in the project's root directory and run the following command to install all the necessary packages:
-```bash
-npm install
-```
-
-### 3. Configure Environment Variables
-Your Firebase API keys are sensitive and should not be committed to version control. This project uses a `.env` file to manage them securely.
-
-1.  Find the file named `.env.example` in the project root.
-2.  Create a copy of this file in the same directory and name it `.env`.
-3.  Open the new `.env` file and replace the placeholder values (e.g., `YOUR_API_KEY`) with the actual configuration object you got when creating your web app in Firebase.
-4.  The `.gitignore` file is already set up to ignore `.env`, so your keys will not be tracked by Git.
-
-### 4. Configure Admin Emails
-1.  Open the file `src/constants.ts`.
-2.  Update the `ADMIN_EMAILS` array to include the emails of the admin users you created in the Firebase Authentication console.
-
-    ```typescript
-    // src/constants.ts
-
-    export const ADMIN_EMAILS = [
-      "admin1@company.com",
-      "admin2@company.com",
-      "testadmin@example.com"
-      // ... up to 10 emails
-    ].map(email => email.toLowerCase());
-    ```
+*(Steps 1-4 for installing dependencies, configuring .env, and setting admin emails remain the same.)*
 
 ## Running the Application Locally
 1.  Make sure all your configuration changes are saved.
@@ -63,7 +33,44 @@ Your Firebase API keys are sensitive and should not be committed to version cont
     npm run dev
     ```
 3.  Vite will start the development server and provide you with a local URL (usually `http://localhost:5173`). Open this URL in your web browser.
-4.  You should now see the login screen. The app will automatically reload in your browser whenever you save changes to a file.
+
+## Testing the Application
+
+### Unit Tests
+
+This project includes a comprehensive suite of unit tests built with Jest and React Testing Library to ensure individual components and functions work correctly in isolation.
+
+**Important**: The unit tests run against a mocked version of the Firebase services, meaning they **do not** interact with your live database. They are safe and fast to run at any time.
+
+1.  Open your terminal in the project's root directory.
+2.  Run the following command:
+    ```bash
+    npm test
+    ```
+
+### End-to-End (E2E) Testing
+
+End-to-end tests simulate real user workflows in a browser. This project uses **Playwright** to automatically launch a browser, navigate the application, and verify that everything from the UI to the Firebase backend works together correctly.
+
+**E2E Test Prerequisites:**
+
+Before running the E2E tests for the first time, you **must** create two users in your **Firebase Authentication Console** with the following credentials. The tests will use these accounts to simulate login attempts.
+
+1.  **Admin User:**
+    *   **Email**: `testadmin@example.com`
+    *   **Password**: `password123`
+2.  **Non-Admin User:**
+    *   **Email**: `testuser@example.com`
+    *   **Password**: `password123`
+
+**How to Run the E2E Tests:**
+
+1.  Ensure your Vite development server is **not** running in another terminal. Playwright will start it automatically.
+2.  Run the following command:
+    ```bash
+    npm run test:e2e
+    ```
+3.  Playwright will install the necessary browser binaries on the first run, start the dev server, open a browser, execute the tests, and then shut down. A detailed HTML report will be generated in the `playwright-report` folder.
 
 ## How to Test (Phase 1 Checklist)
 -   [ ] **Login as Admin**: Use the credentials of an admin user you created. You should see the dashboard.
