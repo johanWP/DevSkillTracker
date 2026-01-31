@@ -20,7 +20,7 @@ DevSkillTracker is a secure internal web application designed for managing a dat
 -   A modern web browser (e.g., Chrome, Firefox, Safari).
 
 ## Firebase Setup Instructions
-*(These instructions remain the same as before. See sections 1-7 in the previous version of the README for creating your Firebase project, enabling Auth, setting up Firestore, and applying security rules.)*
+*(These instructions remain the same. Ensure you have created your Firebase project, enabled Auth, set up Firestore, and applied security rules.)*
 
 ## Local Setup & Configuration
 
@@ -33,24 +33,13 @@ Open a terminal in the project's root directory and run the following command to
 npm install
 ```
 
-### 3. Configure Firebase in the App
-1.  Open the file `src/services/firebaseService.ts`.
-2.  Find the `firebaseConfig` object placeholder.
-3.  Replace the placeholder with the configuration object you copied when creating your web app in Firebase.
+### 3. Configure Environment Variables
+Your Firebase API keys are sensitive and should not be committed to version control. This project uses a `.env` file to manage them securely.
 
-    ```typescript
-    // src/services/firebaseService.ts
-
-    // TODO: Replace with your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIza...",
-      authDomain: "your-project-id.firebaseapp.com",
-      projectId: "your-project-id",
-      storageBucket: "your-project-id.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:abcd..."
-    };
-    ```
+1.  Find the file named `.env.example` in the project root.
+2.  Create a copy of this file in the same directory and name it `.env`.
+3.  Open the new `.env` file and replace the placeholder values (e.g., `YOUR_API_KEY`) with the actual configuration object you got when creating your web app in Firebase.
+4.  The `.gitignore` file is already set up to ignore `.env`, so your keys will not be tracked by Git.
 
 ### 4. Configure Admin Emails
 1.  Open the file `src/constants.ts`.
